@@ -19,6 +19,14 @@ class ImageEditor:
         cropped_image = self.image[start_y:end_y, start_x:end_x]
         self.show_image('Cropped Image', cropped_image)
 
+    def rotate(self, angle):
+        (h, w) = self.image.shape[:2]
+        center = (w / 2, h / 2)
+        M = cv2.getRotationMatrix2D(center, angle, 1.0)
+        rotated_image = cv2.warpAffine(self.image, M, (w, h))
+        self.show_image('Rotated Image', rotated_image)
+
 if __name__ == "__main__":
     editor = ImageEditor()
     editor.crop(50, 50, 250, 250)
+    editor.rotate(45)
