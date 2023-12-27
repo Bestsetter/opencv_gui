@@ -26,7 +26,12 @@ class ImageEditor:
         rotated_image = cv2.warpAffine(self.image, M, (w, h))
         self.show_image('Rotated Image', rotated_image)
 
+    def flip(self, flip_code):
+        flipped_image = cv2.flip(self.image, flip_code)
+        self.show_image('Flipped Image', flipped_image)
+
 if __name__ == "__main__":
     editor = ImageEditor()
     editor.crop(50, 50, 250, 250)
     editor.rotate(45)
+    editor.flip(1)
