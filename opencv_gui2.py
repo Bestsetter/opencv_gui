@@ -34,9 +34,20 @@ class ImageEditor:
         resized_image = cv2.resize(self.image, (width, height))
         self.show_image('Resized Image', resized_image)
 
+    def adjust_contrast(self, contrast):
+        adjusted_image = cv2.convertScaleAbs(self.image, alpha=contrast)
+        self.show_image('Contrast Adjusted Image', adjusted_image)
+
+    def add_noise(self, mean, stddev):
+        noise = np.random.normal(mean, stddev, self.image.shape)
+        noisy_image = np.clip(self.image + noise, 0, 255).astype(np.uint8)
+        self.show_image('Noisy Image', noisy_image)
+
 if __name__ == "__main__":
     editor = ImageEditor()
     editor.crop(50, 50, 250, 250)
     editor.rotate(45)
     editor.flip(1)
     editor.resize(300, 300)
+    editor.adjust_contrast(1.5)
+    editor.add_noise(0, 10)
